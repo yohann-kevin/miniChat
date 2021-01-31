@@ -29,10 +29,10 @@ function register(){
         $errors[] = 'le mot de passe de confirmation est incorrect !!!';
     }
 
-    // if(pseudoCheck($pseudo)){
-    //     $validation = false;
-    //     $errors[] = 'Ce pseudo est déjà pris !';
-    // }
+    if(pseudoCheck($pseudo)){
+        $validation = false;
+        $errors[] = 'Ce pseudo est déjà pris !';
+    }
 
     if($validation){
         $register = $db->prepare('INSERT INTO users(pseudo, email, password) VALUES (:pseudo, :email, :password)');
@@ -51,4 +51,15 @@ function register(){
 
     return $errors;
     
+}
+
+function pseudoCheck($pseudo){
+    global $db;
+
+    $results = $db->prepare('SELECT COUNT(*) FROM users WHERE pseudo = ? ');
+    $results->execute([$pseudo]);
+
+    $results = $results->fetch()[0];
+
+    return $results;
 }
