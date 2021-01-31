@@ -17,7 +17,7 @@
         if($errors) :
             foreach($errors as $error) :
     ?>
-    <h3>Error</h3>
+    <h3><?= $error ?></h3>
     <?php endforeach; else : ?>
     <h3>GG !</h3>
     <?php endif; endif ?>
